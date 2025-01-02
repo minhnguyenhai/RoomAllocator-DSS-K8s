@@ -1,0 +1,13 @@
+apiVersion: v2
+name: roomallocator
+description: Helm Chart for deploying Room Allocator application.
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+maintainers:
+  - name: Nguyen Hai Minh
+    email: minh.nh210611@sis.hust.edu.vn
+dependencies:
+  - name: postgresql
+    version: 12.1.12
+    repository: https://charts.bitnami.com/bitnami

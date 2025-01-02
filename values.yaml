@@ -1,0 +1,42 @@
+replicaCount: 2
+
+image:
+  frontend:
+    repository: haiminh263/roomallocator-frontend
+    tag: v1.0.0
+    pullPolicy: IfNotPresent
+  backend:
+    repository: haiminh263/roomallocator-server
+    tag: v1.0.0
+    pullPolicy: IfNotPresent
+
+service:
+  frontend:
+    type: ClusterIP
+    port: 80
+  backend:
+    type: ClusterIP
+    port: 5000
+
+resources:
+  requests:
+    memory: "256Mi"
+    cpu: "250m"
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+
+postgresql:
+  fullnameOverride: postgresql
+  auth:
+    username: postgres
+    password: postgres
+    database: roomallocator_db
+  primary:
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "250m"
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
