@@ -27,20 +27,10 @@ resources:
     cpu: "500m"
 
 postgresql:
-  fullnameOverride: postgresql
   auth:
     username: postgres
     password: postgres
     database: roomallocator_db
-  primary:
-    resources:
-      requests:
-        memory: "256Mi"
-        cpu: "250m"
-      limits:
-        memory: "512Mi"
-        cpu: "500m"
-    persistence:
-      enabled: true
-      storageClass: "standard"  
-      size: 4Gi                
+  service:
+    ports:
+      postgresql: "5432"                
