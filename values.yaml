@@ -33,4 +33,8 @@ postgresql:
     database: roomallocator_db
   service:
     ports:
-      postgresql: "5432"                
+      postgresql: "5432"
+  persistence:
+    enabled: true
+    storageClass: "standard"
+    size: 4Gi             
