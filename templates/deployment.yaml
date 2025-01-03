@@ -57,6 +57,6 @@ spec:
           limits:
             memory: {{ .Values.resources.limits.memory }}
             cpu: {{ .Values.resources.limits.cpu }}
-            env:
-            - name: DATABASE_URL
-              value: "postgresql://roomallocator_db_user:un8BWsbcNFrA6HRFpc7Mx7nO9VmaPgpY@dpg-ctrj56popnds73dsd1jg-a.singapore-postgres.render.com/roomallocator_db"
+        env:
+        - name: DATABASE_URL
+          value: "postgresql://roomallocator_db_user:un8BWsbcNFrA6HRFpc7Mx7nO9VmaPgpY@dpg-ctrj56popnds73dsd1jg-a.singapore-postgres.render.com/roomallocator_db"
