@@ -59,4 +59,4 @@ spec:
             cpu: {{ .Values.resources.limits.cpu }}
         env:
         - name: DATABASE_URL
-          value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@postgresql:5432/{{ .Values.postgresql.auth.database }}"
+          value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@roomallocator-postgresql:5432/{{ .Values.postgresql.auth.database }}"
