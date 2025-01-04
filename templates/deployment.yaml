@@ -60,6 +60,6 @@ spec:
         env:
         - name: DATABASE_URL
           valueFrom:
-          configMapKeyRef:
-            name: {{ include "chart.fullname" . }}-backend-config
-            key: DATABASE_URL
+            configMapKeyRef:
+              name: {{ include "chart.fullname" . }}-backend-config
+              key: DATABASE_URL
