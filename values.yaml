@@ -27,14 +27,11 @@ resources:
     cpu: "500m"
 
 postgresql:
-  existingSecret: roomallocator-postgresql
   auth:
     username: postgres
+    password: postgres
     database: roomallocator_db
-  service:
-    ports:
-      postgresql: "5432"
   persistence:
     enabled: true
     storageClass: "standard"
-    size: 2Gi
+    size: 1Gi
