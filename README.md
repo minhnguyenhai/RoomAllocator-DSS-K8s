@@ -91,3 +91,52 @@ This repository includes a Helm chart for deploying the Room Allocator applicati
    - If not using service type LoadBalancer, port forward service for frontend and backend to access.
    ![Render informations of students & rooms'capacity](./docs/app-UI-1.png)
    ![Render results step by step](./docs/app-UI-2.png)
+
+---
+
+## Configuration
+
+The following table lists the configurable parameters of the Room Allocator chart and their default values:
+
+### General Configuration
+| Parameter               | Description                                  | Default                  |
+|-------------------------|----------------------------------------------|--------------------------|
+| `fullnameOverride`      | Override the full name of the release       | `""`                    |
+
+### Frontend Configuration
+| Parameter               | Description                                  | Default                  |
+|-------------------------|----------------------------------------------|--------------------------|
+| `frontend.image.repository` | Frontend Docker image repository           | `haiminh263/roomallocator-frontend` |
+| `frontend.image.tag`    | Frontend Docker image tag                   | `v1.0.0`                |
+| `frontend.image.pullPolicy` | Frontend Docker image pull policy         | `IfNotPresent`          |
+| `frontend.replicas`     | Number of frontend replicas                 | `2`                     |
+| `frontend.service.type` | Frontend service type                       | `ClusterIP`             |
+| `frontend.service.port` | Frontend service port                       | `80`                    |
+| `frontend.resources.requests.memory` | Frontend memory request        | `256Mi`                 |
+| `frontend.resources.requests.cpu`    | Frontend CPU request           | `250m`                  |
+| `frontend.resources.limits.memory`   | Frontend memory limit          | `512Mi`                 |
+| `frontend.resources.limits.cpu`      | Frontend CPU limit             | `500m`                  |
+
+### Backend Configuration
+| Parameter               | Description                                  | Default                  |
+|-------------------------|----------------------------------------------|--------------------------|
+| `backend.image.repository` | Backend Docker image repository           | `haiminh263/roomallocator-server` |
+| `backend.image.tag`     | Backend Docker image tag                   | `v1.0.0`                |
+| `backend.image.pullPolicy` | Backend Docker image pull policy         | `IfNotPresent`          |
+| `backend.replicas`      | Number of backend replicas                 | `2`                     |
+| `backend.service.type`  | Backend service type                       | `ClusterIP`             |
+| `backend.service.port`  | Backend service port                       | `5000`                  |
+| `backend.resources.requests.memory` | Backend memory request        | `256Mi`                 |
+| `backend.resources.requests.cpu`    | Backend CPU request           | `250m`                  |
+| `backend.resources.limits.memory`   | Backend memory limit          | `512Mi`                 |
+| `backend.resources.limits.cpu`      | Backend CPU limit             | `500m`                  |
+
+### PostgreSQL Configuration
+| Parameter               | Description                                  | Default                  |
+|-------------------------|----------------------------------------------|--------------------------|
+| `postgresql.auth.username` | PostgreSQL username                       | `postgres`              |
+| `postgresql.auth.password` | PostgreSQL password                       | `postgres`              |
+| `postgresql.auth.database` | PostgreSQL database name                  | `roomallocator_db`      |
+| `postgresql.persistence.enabled` | Enable persistence for PostgreSQL   | `true`                  |
+| `postgresql.persistence.storageClass` | Storage class for PostgreSQL    | `standard`              |
+| `postgresql.persistence.size` | Storage size for PostgreSQL             | `1Gi`                   |
