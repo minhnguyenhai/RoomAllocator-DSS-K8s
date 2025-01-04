@@ -13,7 +13,7 @@ Return the fully qualified app name.
 Return labels for app selectors.
 */}}
 {{- define "chart.labels" -}}
-app.kubernetes.io/name: {{ include "chart.name" . }}
+app.kubernetes.io/name: {{ .Chart.Name }}
 helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
