@@ -58,5 +58,10 @@ spec:
             memory: {{ .Values.resources.limits.memory }}
             cpu: {{ .Values.resources.limits.cpu }}
         env:
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.postgresql.existingSecret }}
+              key: postgres-password
         - name: DATABASE_URL
-          value: "postgresql://roomallocator_db_user:un8BWsbcNFrA6HRFpc7Mx7nO9VmaPgpY@dpg-ctrj56popnds73dsd1jg-a.singapore-postgres.render.com/roomallocator_db"
+          value: "postgresql://{{ .Values.postgresql.auth.username }}:${POSTGRES_PASSWORD}@roomallocator-postgresql:5432/{{ .Values.postgresql.auth.database }}"
