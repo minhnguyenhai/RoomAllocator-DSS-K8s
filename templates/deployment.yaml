@@ -1,62 +1,65 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: {{ include "chart.fullname" . }}-frontend
   labels:
-    app: roomallocator
+    {{- include "chart.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.frontend.replicas }}
   selector:
     matchLabels:
-      app: frontend
+      app: {{ include "chart.fullname" . }}-frontend
   template:
     metadata:
       labels:
-        app: frontend
+        app: {{ include "chart.fullname" . }}-frontend
     spec:
       containers:
       - name: frontend
-        image: "{{ .Values.image.frontend.repository }}:{{ .Values.image.frontend.tag }}"
-        imagePullPolicy: {{ .Values.image.frontend.pullPolicy }}
+        image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+        imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
         ports:
         - containerPort: 80
         resources:
           requests:
-            memory: {{ .Values.resources.requests.memory }}
-            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.frontend.resources.requests.memory }}
+            cpu: {{ .Values.frontend.resources.requests.cpu }}
           limits:
-            memory: {{ .Values.resources.limits.memory }}
-            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.frontend.resources.limits.memory }}
+            cpu: {{ .Values.frontend.resources.limits.cpu }}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: {{ include "chart.fullname" . }}-backend
   labels:
-    app: roomallocator
+    {{- include "chart.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.backend.replicas }}
   selector:
     matchLabels:
-      app: backend
+      app: {{ include "chart.fullname" . }}-backend
   template:
     metadata:
       labels:
-        app: backend
+        app: {{ include "chart.fullname" . }}-backend
     spec:
       containers:
       - name: backend
-        image: "{{ .Values.image.backend.repository }}:{{ .Values.image.backend.tag }}"
-        imagePullPolicy: {{ .Values.image.backend.pullPolicy }}
+        image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+        imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
         ports:
         - containerPort: 5000
         resources:
           requests:
-            memory: {{ .Values.resources.requests.memory }}
-            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.backend.resources.requests.memory }}
+            cpu: {{ .Values.backend.resources.requests.cpu }}
           limits:
-            memory: {{ .Values.resources.limits.memory }}
-            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.backend.resources.limits.memory }}
+            cpu: {{ .Values.backend.resources.limits.cpu }}
         env:
         - name: DATABASE_URL
-          value: postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ .Release.Name }}-postgresql:5432/{{ .Values.postgresql.auth.database }}
+          valueFrom:
+          configMapKeyRef:
+            name: {{ include "chart.fullname" . }}-backend-config
+            key: DATABASE_URL

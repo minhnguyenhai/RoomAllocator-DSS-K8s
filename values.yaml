@@ -1,36 +1,67 @@
-replicaCount: 2
+# Override the full name of the release. If left empty, it will use <chart-name>-<release-name>
+fullnameOverride: ""
 
-image:
-  frontend:
+# Configuration for the frontend application
+frontend:
+  # Docker image details for the frontend
+  image:
     repository: haiminh263/roomallocator-frontend
     tag: v1.0.0
     pullPolicy: IfNotPresent
-  backend:
+
+  # Number of frontend application replicas
+  replicas: 2
+
+  # Service configuration for the frontend
+  service:
+    type: ClusterIP
+    # Port exposed by the frontend service
+    port: 80
+
+  # Resource configuration for the frontend container
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+# Configuration for the backend application
+backend:
+  # Docker image details for the backend
+  image:
     repository: haiminh263/roomallocator-server
     tag: v1.0.0
     pullPolicy: IfNotPresent
 
-service:
-  frontend:
+  # Number of backend application replicas
+  replicas: 2
+
+  # Service configuration for the backend
+  service:
     type: ClusterIP
-    port: 80
-  backend:
-    type: ClusterIP
+    # Port exposed by the backend service
     port: 5000
 
-resources:
-  requests:
-    memory: "256Mi"
-    cpu: "250m"
-  limits:
-    memory: "512Mi"
-    cpu: "500m"
+  # Resource configuration for the backend container
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
 
+# Configuration for PostgreSQL database
 postgresql:
+  # PostgreSQL database authentication details
   auth:
     username: postgres
     password: postgres
     database: roomallocator_db
+
+  # PostgreSQL database persistence configuration
   persistence:
     enabled: true
     storageClass: "standard"
